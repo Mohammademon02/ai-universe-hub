@@ -10,6 +10,8 @@ const loadCards = () => {
 const displayCards = cards => {
     // console.log(cards);
     const cardsContainer = document.getElementById('cards-container');
+    
+        
     cards.forEach(card => {
         // console.log(card.features)
         const cardDiv = document.createElement('div')
@@ -26,31 +28,54 @@ const displayCards = cards => {
                     <li class="${card.features[3] === undefined ? 'd-none' : ''}">${card.features[3]}</li>
                 </ol>
             </div>
-            <div class="card-footer bg-white">
-                <h5 class="card-title fw-bold">${card.name}</h5>
+            <div class="card-footer bg-white d-flex align-items-center justify-content-between">
+                <div>
+                    <h5 class="card-title fw-bold">${card.name}</h5>
+                    <p><i class="fa-solid fa-calendar-days"></i>  ${card.published_in}</p>
+                </div>
+                <button onclick="loadCardDetails('${card.id}')" class="btn btn-primary rounded-5" data-bs-toggle="modal" data-bs-target="#cardModal"><i class="fa-solid fa-circle-right"></i></button>
             </div>
-
         </div>
         `;
         cardsContainer.appendChild(cardDiv);
-
-        const features = card.features;
         
     });
 }
 
+const loadCardDetails = id => {
+    const url =`https://openapi.programming-hero.com/api/ai/tool/${id}`
+    fetch(url)
+    .then(res => res.json())
+    .then(data => displayCardDetails(data))
+}
+
+const displayCardDetails = card => {
+    
+}
 loadCards();
 
 
 
-// const cardDiv = document.createElement('div');
-//         cardDiv.classList.add('col');
-//         cardDiv.innerHTML = `
-//         <div class="card h-100">
-//             <img src="${card.image}" class="card-img-top" alt="...">
-//             <div class="card-body">
-//                 <h5 class="card-title">Card title</h5>
-//                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-//             </div>
-//         </div>
-//         `
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const toggleSpinner = isLoading => {
+//     const loader = document.getElementById('loader');
+//     if(isLoading){
+//         loader.classList.remove('d-none')
+//     }
