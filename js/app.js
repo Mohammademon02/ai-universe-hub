@@ -9,9 +9,11 @@ const loadCards = () => {
 
 const displayCards = cards => {
     // console.log(cards);
+
+    // // // start spinner 
+    //   toggleSpinner(true);
+
     const cardsContainer = document.getElementById('cards-container');
-    
-        
     cards.forEach(card => {
         // console.log(card.features)
         const cardDiv = document.createElement('div')
@@ -22,8 +24,8 @@ const displayCards = cards => {
             <div class="card-body">
                 <h5 class="card-title fw-bold">Features</h5>
                 <ol class="card-container">
-                    <li>${card.features[0]}</li>
-                    <li>${card.features[1]}</li>
+                    <li class="${card.features[0] === undefined ? 'd-none' : ''}">${card.features[0]}</li>
+                    <li class="${card.features[1] === undefined ? 'd-none' : ''}">${card.features[1]}</li>
                     <li class="${card.features[2] === undefined ? 'd-none' : ''}">${card.features[2]}</li>
                     <li class="${card.features[3] === undefined ? 'd-none' : ''}">${card.features[3]}</li>
                 </ol>
@@ -40,6 +42,10 @@ const displayCards = cards => {
         cardsContainer.appendChild(cardDiv);
         
     });
+
+    // start spinner 
+    toggleSpinner(false);
+
 }
 
 const loadCardDetails = id => {
@@ -48,7 +54,6 @@ const loadCardDetails = id => {
     .then(res => res.json())
     .then(data => displayCardDetails(data.data))
 }
-
 
 const displayCardDetails = card => {
 
@@ -85,11 +90,11 @@ const displayCardDetails = card => {
               <div>
                 <h5>Integrations</h5>
                 <ul>
-                  <li class="${card.integrations[0] === undefined || null ? 'd-none' : ''}" >${card.integrations[0]}</li>
-                  <li class="${card.integrations[1] === undefined || null ? 'd-none' : ''}" >${card.integrations[1]}</li>
-                  <li class="${card.integrations[2] === undefined || null ? 'd-none' : ''}" >${card.integrations[2]}</li>
-                  <li class="${card.integrations[3] === undefined || null ? 'd-none' : ''}" >${card.integrations[3]}</li>
-                  <li class="${card.integrations[4] === undefined || null ? 'd-none' : ''}" >${card.integrations[4]}</li>
+                  <li class="${card.integrations[0] === undefined ? 'd-none' : ''}" >${card.integrations[0]}</li>
+                  <li class="${card.integrations[1] === undefined ? 'd-none' : ''}" >${card.integrations[1]}</li>
+                  <li class="${card.integrations[2] === undefined ? 'd-none' : ''}" >${card.integrations[2]}</li>
+                  <li class="${card.integrations[3] === undefined ? 'd-none' : ''}" >${card.integrations[3]}</li>
+                  <li class="${card.integrations[4] === undefined ? 'd-none' : ''}" >${card.integrations[4]}</li>
                 </ul>
               </div>
             </div>
@@ -108,17 +113,23 @@ const displayCardDetails = card => {
         </div>
   `;
 
- 
+
 }
+
+
+
+
+// toggle spinner function here
+const toggleSpinner = isLoading => {
+  const spinnerSection = document.getElementById('spinner');
+  if(isLoading){
+      spinnerSection.classList.remove('d-none');
+  }
+  else{
+      spinnerSection.classList.add('d-none');
+  }
+}
+
+
 loadCards();
 
-
-
-
-
-
-// const toggleSpinner = isLoading => {
-//     const loader = document.getElementById('loader');
-//     if(isLoading){
-//         loader.classList.remove('d-none')
-//     }
