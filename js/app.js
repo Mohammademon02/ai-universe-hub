@@ -152,7 +152,7 @@ const displayCardDetails = card => {
         <div class="card" style="width: 50%;">
           <div class="position-relative">
             <img src="${card.image_link[0]}" class="card-img-top" alt="...">
-            <div class="${card.accuracy.score === null ? 'd-none' : ''}"><button type="button" class="btn btn-danger position-absolute top-0 start-50 badge rounded-pill">${card.accuracy.score}</button></div>
+            <div class="${card.accuracy.score === null ? 'd-none' : ''}"><button type="button" class="btn btn-danger position-absolute top-0 start-50 badge rounded-pill">${card.accuracy.score} accuracy</button></div>
           </div>
           <div class="card-body">
             <h5 class="card-title">${card.input_output_examples ? card.input_output_examples[0].input : "No! Not Yet! Take a break!!!"}</h5>
