@@ -46,75 +46,69 @@ const loadCardDetails = id => {
     const url =`https://openapi.programming-hero.com/api/ai/tool/${id}`
     fetch(url)
     .then(res => res.json())
-    .then(data => console.log(data.data))
+    .then(data => displayCardDetails(data.data))
 }
 
 
 const displayCardDetails = card => {
-  console.log(card);
 
-  const modalContainer = document.getElementById('modal-container');
-  const modalContent = document.createElement('div');
-  modalContent.classList.add('modal-content');
-  modalContent.innerHTML = `
-        <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  console.log(card);
+  const modalContaienr = document.getElementById('modal-container');
+  modalContaienr.innerHTML = `
+        <div class="card" style="width: 50%; background-color: rgba(235, 87, 87, 0.05);">
+          <div class="card-body">
+            <h5 class="card-title">${card.description}</h5>
+
+            <div class="d-flex justify-content-around">
+              <div class=" text-center text-success ">
+                <p>${card.pricing ? card.pricing[0].price : "Free of Cost"}</p>
+                <p>${card.pricing ? card.pricing[0].plan : "Basic"}</p>
+              </div>
+              <div class="text-warning text-center">
+                <p>${card.pricing ? card.pricing[1].price : "Free of Cost"}</p>
+                <p>${card.pricing ? card.pricing[1].plan : "Basic"}</p>
+              </div>
+              <div class="text-danger text-center">
+                <p>${card.pricing ? card.pricing[2].price : "Free of Cost"}</p>
+                <p>${card.pricing ? card.pricing[2].plan : "Basic"}</p>
+              </div>
+              
+            </div>
+
+            <div class="d-flex gap-3">
+              <div>
+                <h5>Features</h5>
+                <ul id="fe-${card.id}">
+                  
+                </ul>
+              </div>
+              <div>
+                <h5>Integrations</h5>
+                <ul>
+                  <li class="${card.integrations[0] === undefined || null ? 'd-none' : ''}" >${card.integrations[0]}</li>
+                  <li class="${card.integrations[1] === undefined || null ? 'd-none' : ''}" >${card.integrations[1]}</li>
+                  <li class="${card.integrations[2] === undefined || null ? 'd-none' : ''}" >${card.integrations[2]}</li>
+                  <li class="${card.integrations[3] === undefined || null ? 'd-none' : ''}" >${card.integrations[3]}</li>
+                  <li class="${card.integrations[4] === undefined || null ? 'd-none' : ''}" >${card.integrations[4]}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="modal-body d-flex gap-3">
-
-          <div class="card" style="width: 50%;">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-
-              <div class="d-flex gap-3">
-                <div>
-                  <p>price</p>
-                  <p>Basic</p>
-                </div>
-                <div>
-                  <p>price</p>
-                  <p>Pro</p>
-                </div>
-                <div>
-                  <p>price</p>
-                  <p>Enterprise</p>
-                </div>
-              </div>
-
-              <div class="d-flex gap-3">
-                <div>
-                  <h5>Features</h5>
-                  <ul>
-                    <li></li>
-                  </ul>
-                </div>
-                <div>
-                  <h5>Integrations</h5>
-                  <ul>
-                    <li></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+        <div class="card" style="width: 50%;">
+          <div class="position-relative">
+            <img src="${card.image_link[0]}" class="card-img-top" alt="...">
+            <div class="${card.accuracy.score === null ? 'd-none' : ''}"><button type="button" class="btn btn-danger position-absolute top-0 start-50 badge rounded-pill">${card.accuracy.score}</button></div>
           </div>
-
-          <div class="card" style="width: 50%;">
-            <div>
-              <img src="..." class="card-img-top" alt="...">
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Hi, how are you doing today?</h5>
-              <p class="card-text"> </p>
-            </div>
+          <div class="card-body">
+            <h5 class="card-title">${card.input_output_examples ? card.input_output_examples[0].input : "No! Not Yet! Take a break!!!"}</h5>
+            <p class="card-text">${card.input_output_examples ? card.input_output_examples[0].output : "No! Not Yet! Take a break!!!"}</p>
           </div>
-
         </div>
   `;
 
-  modalContainer.appendChild(modalContent);
-
-
+ 
 }
 loadCards();
 
